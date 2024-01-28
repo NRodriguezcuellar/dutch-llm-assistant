@@ -1,5 +1,5 @@
 import { ActionFunctionArgs } from "@remix-run/node";
-import { dutchLanguageAssistant } from "~/langchain.server/dutch-assistant";
+import { dutchLanguageAssistantGeitje } from "~/langchain.server/dutch-assistant";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -7,10 +7,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const question = formData.get("question");
 
   if (!question) {
-    throw new Response("no question provided", { status: 400 });
+    return "No question was provided";
   }
 
-  return dutchLanguageAssistant.invoke({
+  return dutchLanguageAssistantGeitje.invoke({
     input: question,
   });
 };
