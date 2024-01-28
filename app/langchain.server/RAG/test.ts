@@ -10,31 +10,42 @@ import {
   RunnableSequence,
 } from "@langchain/core/runnables";
 import { formatDocumentsAsString } from "langchain/util/document";
-import testDocument from "~/assets/test-data/play-book-overheid-open-source-software.pdf";
-import { ollamaEmbeddingModel } from "../embeddingModels";
+import { openAIEmbeddingModel } from "../embeddingModels";
 import { pdfLoader } from "../loaders";
-import { geitjeChatModel } from "../models";
+import { openAIChatModel } from "../models";
 import { simpleVectorStore } from "../stores";
 
-const LLMModel = geitjeChatModel;
+const chatModel = openAIChatModel;
+const embeddingModel = openAIEmbeddingModel;
 
-const document = await pdfLoader(testDocument).load();
-const vectorStore = await simpleVectorStore(document, ollamaEmbeddingModel);
+export const getRAGChain = async () => {
+  const document = await pdfLoader(
+    "./app/assets/test-data/play-book-overheid-open-source-software.pdf",
+  ).load();
 
-const retriever = vectorStore.asRetriever();
+  console.log("Document loaded");
 
-const prompt =
-  PromptTemplate.fromTemplate(`Answer the question based only on the following context:
+  console.log("Creating vector store");
+  const vectorStore = await simpleVectorStore(document, embeddingModel);
+
+  console.log("Vector store created");
+  const retriever = vectorStore.asRetriever();
+
+  const prompt =
+    PromptTemplate.fromTemplate(`Beantwoord de vraag mede met volgende context:
 {context}
 
-Question: {question}`);
+vraag: {question}`);
 
-export const testRAGChain = RunnableSequence.from([
-  {
-    context: retriever.pipe(formatDocumentsAsString),
-    question: new RunnablePassthrough(),
-  },
-  prompt,
-  LLMModel,
-  new StringOutputParser(),
-]);
+  console.log("returning runnable sequence");
+
+  return RunnableSequence.from([
+    {
+      context: retriever.pipe(formatDocumentsAsString),
+      question: new RunnablePassthrough(),
+    },
+    prompt,
+    chatModel,
+    new StringOutputParser(),
+  ]);
+};

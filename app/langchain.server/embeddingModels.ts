@@ -3,7 +3,7 @@ import { OpenAIEmbeddings } from "@langchain/openai";
 import { environment } from "~/environment";
 
 export const ollamaEmbeddingModel = new OllamaEmbeddings({
-  model: "llama2",
+  model: "stablelm2",
   baseUrl: environment.OLLAMA_BASE_URL,
 });
 
