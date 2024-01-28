@@ -1,5 +1,8 @@
 {
-  "cSpell.words": ["geitje", "mixtral"],
+  "cSpell.words": [
+    "geitje",
+    "mixtral"
+  ],
   "search.exclude": {
     "**/.yarn": true,
     "**/.pnp.*": true
@@ -8,9 +11,10 @@
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit",
     "source.fixAll": "explicit"
   },
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs"
 }
