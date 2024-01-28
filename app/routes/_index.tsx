@@ -13,7 +13,7 @@ export default function Index() {
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <fetcher.Form action="/assistant" method="post">
+      <fetcher.Form action="/rag-prompt" method="post">
         <textarea
           name="question"
           style={{

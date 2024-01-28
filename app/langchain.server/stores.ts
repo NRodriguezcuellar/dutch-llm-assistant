@@ -1,6 +1,6 @@
 import { DocumentInterface } from "@langchain/core/documents";
 import { EmbeddingsInterface } from "@langchain/core/embeddings";
-import { VectorStore } from "@langchain/core/vectorstores";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
 
 export const simpleVectorStore = async <
   T extends DocumentInterface<Record<string, unknown>>[],
@@ -8,5 +8,5 @@ export const simpleVectorStore = async <
   document: T,
   embeddings: EmbeddingsInterface,
 ) => {
-  return VectorStore.fromDocuments(document, embeddings, {});
+  return MemoryVectorStore.fromDocuments(document, embeddings);
 };

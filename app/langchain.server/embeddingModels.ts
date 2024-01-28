@@ -1,5 +1,5 @@
+import { OllamaEmbeddings } from "@langchain/community/embeddings/ollama";
 import { OpenAIEmbeddings } from "@langchain/openai";
-import { OllamaEmbeddings } from "langchain/embeddings/ollama";
 import { environment } from "~/environment";
 
 export const ollamaEmbeddingModel = new OllamaEmbeddings({
